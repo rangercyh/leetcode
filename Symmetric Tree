@@ -1,0 +1,67 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode *root) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        stack<TreeNode *> lhs;
+        stack<TreeNode *> rhs;
+        
+        if (!root)
+            return true;
+            
+        if (!root->left && !root->right)
+            return true;
+        else if (root->left && root->right) {
+            lhs.push(root->left);
+            rhs.push(root->right);
+        }
+        else
+            return false;
+        
+        TreeNode *lhs_node;
+        TreeNode *rhs_node;
+        while (!lhs.empty()) {
+            lhs_node = lhs.top();
+            rhs_node = rhs.top();
+
+            lhs.pop();
+            rhs.pop();
+
+            if (lhs_node->val != rhs_node->val)
+                return false;
+                
+            if (lhs_node->left && !rhs_node->right)
+                return false;
+                
+            if (!lhs_node->left && rhs_node->right)
+                return false;
+
+            if (lhs_node->right && !rhs_node->left)
+                return false;
+
+            if (!lhs_node->right && rhs_node->left)
+                return false;
+
+            if (lhs_node->left)
+                lhs.push(lhs_node->left);
+
+            if (lhs_node->right)
+                lhs.push(lhs_node->right);
+
+            if (rhs_node->right)
+                rhs.push(rhs_node->right);
+
+            if (rhs_node->left)
+                rhs.push(rhs_node->left);
+        }
+        return true;
+    }
+};
