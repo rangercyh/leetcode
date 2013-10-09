@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int searchInsert(int A[], int n, int target) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        int nPos = 0;
+        while (nPos < n) {
+            if (A[nPos] < target)
+                ++nPos;
+            else
+                return nPos;
+        }
+        return nPos;
+    }
+};
