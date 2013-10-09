@@ -4,8 +4,7 @@ public:
         // Start typing your C/C++ solution below
         // DO NOT write int main() function
         int nReverse = 0;
-        while (x != 0)
-        {
+        while (x != 0) {
             nReverse = nReverse * 10 + x % 10; 
             x = x / 10;
         }
