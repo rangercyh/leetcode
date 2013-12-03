@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+		int nBegin = 0;
+		int nEnd = s.length() - 1;
+        while (nBegin <= nEnd) {
+            while ((nBegin < s.length() - 1) && !isalpha(s[nBegin]) && !isalnum(s[nBegin]))
+                ++nBegin;
+            while ((nEnd > 0) && !isalpha(s[nEnd]) && !isalnum(s[nEnd]))
+                --nEnd;
+            if (nBegin >= nEnd)
+                return true;
+            if (tolower(s[nBegin]) != tolower(s[nEnd]))
+                return false;
+            ++nBegin;
+            --nEnd;
+        }
+        return true;
+    }
+};
