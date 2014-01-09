@@ -1,0 +1,27 @@
+class Solution {
+public:
+	string expandCenter(string s, int lh, int rh) {
+		while ((lh >= 0) && (rh < s.length()) && (s[lh] == s[rh])) {
+			--lh;
+			++rh;
+		}
+		return s.substr(lh + 1, rh - lh - 1);
+	}
+	string longestPalindrome(string s) {
+		int n = s.length();
+		if ((n == 0) or (n == 1))
+			return s;
+		string palindromicStr = s.substr(0, 1);
+		for (int i = 0; i < n - 1; ++i) {
+			// 单字符中心
+			string s1 = expandCenter(s, i, i);
+			if (s1.length() > palindromicStr.length())
+				palindromicStr = s1;
+			// 双字符中心
+			string s2 = expandCenter(s, i, i + 1);
+			if (s2.length() > palindromicStr.length())
+				palindromicStr = s2;
+		}
+		return palindromicStr;
+	}
+};
