@@ -18,3 +18,75 @@ public:
         return maxsum;
     }
 };
+
+/*
+这里我要说点，我一开始以为这题跟之前看到过的一篇博文 http://qandwhat.apps.runkite.com/i-failed-a-twitter-interview/ 
+里的题目一样，所以写了个算法，结果发现是WA，算法如下：
+
+class Solution {
+public:
+    int maxArea(vector<int> &height) {
+        if (height.size() <= 0)
+            return 0;
+        int sum = 0;
+        int st = 0;
+        int ed = height.size() - 1;
+        while (st < ed) {
+            if (height[st] < height[ed]) {
+                int pos = st + 1;
+                while (height[pos] < height[st]) {
+                    sum += (height[st] - height[pos]);
+                    ++pos;
+                }
+                st = pos;
+            }
+            else {
+                int pos = ed - 1;
+                while (height[pos] < height[ed]) {
+                    sum += (height[ed] - height[pos]);
+                    --pos;
+                }
+                ed = pos;
+            }
+        }
+        return sum;
+    }
+};
+
+后来我又以为题目说的是线，而不是 twitter 那题的平台，也就是像 { 1, 1 } 这种也是有一块面积为 1 的区域的，
+所以我改写了算法：
+class Solution {
+public:
+    int maxArea(vector<int> &height) {
+        if (height.size() <= 0)
+            return 0;
+        int sum = 0;
+        int st = 0;
+        int ed = height.size() - 1;
+        while (st < ed) {
+            if (height[st] < height[ed]) {
+                int pos = st + 1;
+                while (height[pos] < height[st]) {
+                    sum += height[pos];
+                    ++pos;
+                }
+                sum += height[st];
+                st = pos;
+            }
+            else {
+                int pos = ed - 1;
+                while (height[pos] < height[ed]) {
+                    sum += height[pos];
+                    --pos;
+                }
+                sum += height[ed];
+                ed = pos;
+            }
+        }
+        return sum;
+    }
+};
+
+结果发现还是错了，最后仔细看题才明白，题目要求的是选好两根线之后，其他的线都去掉。。。
+
+*/
