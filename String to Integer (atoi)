@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int atoi(const char *str) {
+        /* skip whitespace */
+        while (isspace((int)(unsigned char)*str))
+            ++str;
+
+        int c = (int)(unsigned char)*str++; /* current char */
+        int sign = c;           /* save sign indication */
+        if (c == '-' || c == '+')
+            c = (int)(unsigned char)*str++;    /* skip sign */
+            
+        int total = 0, median = 0;         /* current total */
+        while (isdigit(c)) {
+            if ((++median > 10) || (10 * total + (c - '0') - 2147483647L > 0))
+                return (sign == '-') ? INT_MIN : INT_MAX;
+            total = 10 * total + (c - '0');     /* accumulate digit */
+            c = (int)(unsigned char)*str++;    /* get next char */
+        }
+        
+        if (sign == '-')
+            return -total;
+        else
+            return total;
+    }
+};
