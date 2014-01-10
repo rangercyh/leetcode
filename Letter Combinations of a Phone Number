@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void dfs(const string &digits, int dep, string &ans, vector<string> &strs)
+    {
+        const string map[10] = { " ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+        if (dep == digits.length()) {
+            strs.push_back(ans);
+            return;
+        }
+        for (size_t i = 0; i < map[digits[dep] - '0'].size(); ++i) {
+            ans.push_back(map[digits[dep] - '0'][i]);
+            dfs(digits, dep + 1, ans, strs);
+            ans.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        vector<string> strs;
+        if (digits.length() <= 0) {
+            strs.push_back("");
+            return strs;
+        }
+        string ans;
+        dfs(digits, 0, ans, strs);
+        return strs;
+    }
+};
