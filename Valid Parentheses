@@ -1,0 +1,45 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        if (s.size() % 2 != 0)
+            return false;
+        if (s.size() == 0)
+            return true;
+        int m = 0;
+        int n = 0;
+        int p = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            switch (s.at(i)) {
+            case '(':
+                ++m;
+                break;
+            case '[': 
+                ++n;
+                break;
+            case '{': 
+                ++p;
+                break;
+            case ')': 
+                if ((i < 1) || (s.at(i - 1) == '[') || (s.at(i - 1) == '{'))
+                    return false;
+                --m;
+                break;
+            case ']': 
+                if ((i < 1) || (s.at(i - 1) == '(') || (s.at(i - 1) == '{'))
+                    return false;
+                --n;
+                break;
+            case '}': 
+                if ((i < 1) || (s.at(i - 1) == '(') || (s.at(i - 1) == '['))
+                    return false;
+                --p;
+                break;
+            }
+        }
+        if ((m == 0) && (n == 0) && (p == 0))
+            return true;
+        else
+            return false;
+    }
+};
