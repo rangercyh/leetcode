@@ -1,0 +1,19 @@
+class Solution {
+public:
+    void tree_traversal(vector<string> &ans, string s, int l, int r, int n) {
+        if (l == n) {
+            s.append(n - r, ')');
+            ans.push_back(s);
+            return;
+        }
+        tree_traversal(ans, s + '(', l + 1, r, n);
+        if (l > r) 
+            tree_traversal(ans, s + ')', l, r + 1, n);
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        if (n > 0)
+            tree_traversal(ans, "", 0, 0, n);
+        return ans;
+    }
+};
